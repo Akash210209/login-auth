@@ -1,7 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { handleError, handleSuccess } from '../utils';
-import { ToastContainer } from 'react-toastify';
+import React, {
+    useEffect,
+    useState
+} from 'react'
+import {
+    useNavigate
+} from 'react-router-dom';
+import {
+    handleError,
+    handleSuccess
+} from '../utils';
+import {
+    ToastContainer
+} from 'react-toastify';
 
 function Home() {
     const [loggedInUser, setLoggedInUser] = useState('');
@@ -22,7 +32,12 @@ function Home() {
 
     const fetchProducts = async () => {
         try {
-            const url = "https://deploy-mern-app-1-api.vercel.app/products";
+            const baseDomain = window.location.host; // e.g., "localhost:3000" or "deploy-mern-app-1-api.vercel.app"
+
+            // Construct the API 
+            // const url = `http:///products`;
+            // const url = "https://deploy-mern-app-1-api.vercel.app/products";
+            const url = `https://${baseDomain}/products`;
             const headers = {
                 headers: {
                     'Authorization': localStorage.getItem('token')
@@ -40,21 +55,33 @@ function Home() {
         fetchProducts()
     }, [])
 
-    return (
-        <div>
-            <h1>Welcome {loggedInUser}</h1>
-            <button onClick={handleLogout}>Logout</button>
-            <div>
-                {
-                    products && products?.map((item, index) => (
-                        <ul key={index}>
-                            <span>{item.name} : {item.price}</span>
-                        </ul>
-                    ))
-                }
-            </div>
-            <ToastContainer />
-        </div>
+    return ( <
+        div >
+        <
+        h1 > Welcome {
+            loggedInUser
+        } < /h1> <
+        button onClick = {
+            handleLogout
+        } > Logout < /button> <
+        div > {
+            products && products ? .map((item, index) => ( <
+                ul key = {
+                    index
+                } >
+                <
+                span > {
+                    item.name
+                }: {
+                    item.price
+                } < /span> <
+                /ul>
+            ))
+        } <
+        /div> <
+        ToastContainer / >
+        <
+        /div>
     )
 }
 
